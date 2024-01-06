@@ -1,4 +1,5 @@
 # imports
+from utils.menu import Visualization
 from discord.ext import commands, tasks
 from utils.envkeys import aura_key, app_id
 from dotenv import load_dotenv
@@ -16,6 +17,9 @@ class BotAura(commands.AutoShardedBot):
         load_dotenv()
 
         super().__init__(command_prefix='a!', case_insensitive=True, intents=intents, application_id=app_id(), shards=2)
+
+    async def setup_hook(self) -> None:
+        self.add_view(Visualization())
 
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
@@ -55,6 +59,7 @@ async def refresh(ctx):
 
 async def main():
     await on_ready()
+    await cogs_load()
 
     print("I'm Online!")
     await aura.start(aura_key())

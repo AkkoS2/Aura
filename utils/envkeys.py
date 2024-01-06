@@ -7,3 +7,7 @@ def aura_key():
 
 def app_id():
     return os.environ.get("APP_ID", None)
+
+
+def server_id():
+    return os.environ.get("SERVER_ID", None)
